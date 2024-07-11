@@ -65,7 +65,7 @@ def save_to_excel(structured_data, topic):
 
     wb = openpyxl.Workbook()
     ws = wb.active
-    ws.title = "Chemical Technology Questions"
+    ws.title = f"{topic}"
 
     headers = ["Question", "Option 1", "Option 2", "Option 3", "Option 4", "Answer"]
     ws.append(headers)
