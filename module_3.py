@@ -39,7 +39,7 @@ def parse_unstructured_data(data):
     return questions
 
 def generate_prompt(num_of_que, topic, domain):
-    prompt = f"Generate {num_of_que} very accurate single-choice questions on your own, do not copy directly from internet, with their right answers mentioned, suitable for Btech final year students at an advanced or hard difficulty level, focusing on {topic} under {domain} in the Unstructured Format only."
+    prompt = f"Design and Generate {num_of_que} very accurate single-choice questions on your own, ensure that they are in proper wh-word or a similar question format like how, what, why or similar question words, do not copy directly from internet, with their right answers mentioned, suitable for Btech final year students at an advanced or hard difficulty level, focusing on {topic} under {domain} in the Unstructured Format only."
     #prompt = "Hei how are you. Reply to this."
     API_KEY = "AIzaSyC-aekPBYfN3AWmEIXjXZAtOLvXF7loHjg"  # Replace with your PaLM API Key
     palm.configure(api_key=API_KEY)
@@ -47,12 +47,11 @@ def generate_prompt(num_of_que, topic, domain):
     model_id = "models/text-bison-001"
 
     try:
-      
         completion = palm.generate_text(
             model=model_id,
             prompt=prompt,
             temperature=0.7,
-            max_output_tokens=5000,
+            max_output_tokens=7000,
             candidate_count=1
         )
         outputs = [output['output'] for output in completion.candidates]
@@ -66,7 +65,7 @@ def save_to_excel(structured_data, topic):
 
     wb = openpyxl.Workbook()
     ws = wb.active
-    ws.title = f"{topic}"
+    ws.title = f"{topic} Questions"
 
     headers = ["Question", "Option 1", "Option 2", "Option 3", "Option 4", "Answer"]
     ws.append(headers)
