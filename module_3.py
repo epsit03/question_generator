@@ -38,8 +38,8 @@ def parse_unstructured_data(data):
 
     return questions
 
-def generate_prompt(num_of_que, topic, domain):
-    prompt = f"Design and Generate {num_of_que} very accurate single-choice questions on your own, ensure that they are in proper wh-word or a similar question format like how, what, why or similar question words, do not copy directly from internet, with their right answers mentioned, suitable for Btech final year students at an advanced or hard difficulty level, focusing on {topic} under {domain} in the Unstructured Format only."
+def generate_prompt(num_of_que, topic, difficulty, domain):
+    prompt = f"Create {num_of_que} single-choice questions based on the topic of {topic}. Each question should have four answer options (A, B, C, D), with its correct answer clearly mentioned in this format answer: A. The questions should be tailored to a difficulty level of {difficulty}. Ensure that the questions are suitable for Btech students and cover various key aspects of the {domain} domain. Give output in the Unstructured Format only."
     #prompt = "Hei how are you. Reply to this."
     API_KEY = "AIzaSyC-aekPBYfN3AWmEIXjXZAtOLvXF7loHjg"  # Replace with your PaLM API Key
     palm.configure(api_key=API_KEY)
@@ -50,8 +50,8 @@ def generate_prompt(num_of_que, topic, domain):
         completion = palm.generate_text(
             model=model_id,
             prompt=prompt,
-            temperature=0.7,
-            max_output_tokens=7000,
+            temperature=0.6,
+            max_output_tokens=5000,
             candidate_count=1
         )
         outputs = [output['output'] for output in completion.candidates]
@@ -88,8 +88,9 @@ def main():
     num_of_que = int(input("Enter the desired number of questions: (Maximum 20): " ))
     domain = input("Enter the Domain: ")
     topic = input("Enter the sub-domain: ")
+    difficulty = input("Enter the level of difficulty: ")
 
-    unstructured_data = generate_prompt(num_of_que, topic, domain)
+    unstructured_data = generate_prompt(num_of_que, topic, difficulty, domain)
     if unstructured_data:
         print("Generated data:", unstructured_data)
         structured_data = parse_unstructured_data(unstructured_data)
