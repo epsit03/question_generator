@@ -39,7 +39,7 @@ def parse_unstructured_data(data):
     return questions
 
 def generate_prompt(num_of_que, topic, difficulty, domain):
-    prompt = f"Create {num_of_que} single-choice questions based on the topic of {topic}. Each question should have four answer options (A, B, C, D), with its correct answer clearly mentioned in this format answer: A. The questions should be tailored to a difficulty level of {difficulty}. Ensure that the questions are suitable for Btech students and cover various key aspects of the {domain} domain. Give output in the Unstructured Format only."
+    prompt = f"Create {num_of_que} single-choice questions based on the topic of {topic}. Each question should have four answer options, every option must be given in a separate line and, each option should be in a parentheses like this format: (A) with its correct answer clearly mentioned in this format answer: A. The questions should be tailored to a difficulty level of {difficulty}. Ensure that the questions are suitable for Btech students and cover various key aspects of the {domain} domain. Give output in the Unstructured Format only."
     #prompt = "Hei how are you. Reply to this."
     API_KEY = "AIzaSyC-aekPBYfN3AWmEIXjXZAtOLvXF7loHjg"  # Replace with your PaLM API Key
     palm.configure(api_key=API_KEY)
